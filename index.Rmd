@@ -31,7 +31,7 @@ library(kknn)
 
 ```
 
-# playlists
+<!-- playlists --> 
 
 ```{r, include=FALSE}
 fruitvale <- get_playlist_audio_features("", "23n37IlJukKL9pUJyBbSib")
@@ -45,7 +45,7 @@ slice <- get_playlist_audio_features("", "398opLV7fDeiTRk7d6ulHv")
 tenet <- get_playlist_audio_features("", "7EXL4cAtGhd0Qaumzx96rq")
 ```
 
-# titles for each score
+<!-- Titles for each scores --> 
 
 ```{r, include=FALSE}
 scores <-
@@ -63,7 +63,7 @@ scores <-
 
 ```
 
-# genres
+<!-- Genres --> 
 
 ```{r, include=FALSE}
 genres <-
@@ -82,9 +82,9 @@ genres <-
 
 ```
 
-# summary scores
+<!-- Summary scores --> 
 
-```{r, include=TRUE}
+```{r, include=FALSE}
 scores %>%
   summarise(
     mean_speechiness = mean(speechiness),
@@ -103,7 +103,7 @@ scores %>%
 
 ```
 
-# artist features
+<!-- Artist features --> 
 
 ```{r}
 
@@ -111,9 +111,9 @@ ludwig <- get_artist_audio_features('Ludwig Göransson')
 
 ```
 
-# summary ludwig
+<!-- Summary Ludwig --> 
 
-```{r, include=TRUE}
+```{r, include=FALSE}
 ludwigsum <- ludwig %>%
   summarise(
     mean_speechiness = mean(speechiness),
@@ -132,12 +132,57 @@ ludwigsum <- ludwig %>%
 
 ```
 
-```{r}
+```{r, include=FALSE}
 ludwigsum
 ```
 
 Analysis {.storyboard}
 =========================================
+
+### Main
+
+```{r, include=FALSE}
+lolli <-
+  bind_rows(
+   
+      fruitvale %>% mutate(category = "Drama/Romance"),
+    creed2 %>% mutate(category = "Sport/Drama"),
+    tenet %>% mutate(category = "Action")
+    
+
+  )
+
+```
+
+
+```{r include = FALSE}
+lolli <- lolli %>% mutate(track.name = fct_reorder(track.name, acousticness, last))%>%
+ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) + 
+  geom_point(stat='identity', fill="grey", size= 3) +
+  scale_size("track.popularity") +
+  geom_segment(aes(y = 0.5, 
+                   x = `track.name`, 
+                   yend = `acousticness`, 
+                   xend = `track.name`), 
+                   color = "grey",
+               alpha = 0.9
+               ) +
+  geom_text(color="white", size=2, label = "") +
+  labs(title="Diverging Lollipop Chart", 
+       subtitle="Normalized mileage from 'mtcars': Lollipop") + 
+  ylim(0, 1) +
+  coord_flip()+
+  scale_color_viridis(alpha = 1, begin = 0.9, end = 0.051, direction = 1,
+  discrete = TRUE, option = "viridis") + theme_calc(base_family = "Liberation Serif")
+
+
+
+```
+```{r}
+lolli
+```
+
+***
 
 ### Introduction
 
@@ -318,43 +363,7 @@ ggplotly(scatter2)
 ```
 
 
-```{r, include=FALSE}
-lolli <-
-  bind_rows(
-   
-      fruitvale %>% mutate(category = "Drama/Romance"),
-    creed2 %>% mutate(category = "Sport/Drama"),
-    tenet %>% mutate(category = "Action")
-    
 
-  )
-
-```
-
-
-```{r}
-
-ggplot(lolli, aes(x = `track.name`, y = `acousticness`, color = track.album.name)) + 
-  geom_point(stat='identity', fill="grey", size= 3) +
-  scale_size("track.popularity") +
-  geom_segment(aes(y = 0.5, 
-                   x = `track.name`, 
-                   yend = `acousticness`, 
-                   xend = `track.name`), 
-                   color = "grey",
-               alpha = 0.9
-               ) +
-  geom_text(color="white", size=2, label = "") +
-  labs(title="Diverging Lollipop Chart", 
-       subtitle="Normalized mileage from 'mtcars': Lollipop") + 
-  ylim(0, 1) +
-  coord_flip()+
-  scale_color_viridis(alpha = 1, begin = 0.9, end = 0.051, direction = 1,
-  discrete = TRUE, option = "viridis") 
-
-
-
-```
 
 ***
 
