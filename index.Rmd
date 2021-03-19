@@ -158,13 +158,13 @@ lolli <-
 ```{r include = FALSE}
 lolli <- lolli %>% mutate(track.name = fct_reorder(track.name, acousticness, last))%>%
 ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) + 
-  geom_point(stat='identity', fill="grey", size= 3) +
+  geom_point(stat='identity', fill="red", size= 3) +
   scale_size("track.popularity") +
   geom_segment(aes(y = 0.5, 
                    x = `track.name`, 
                    yend = `acousticness`, 
                    xend = `track.name`), 
-                   color = "grey",
+                   color = "red",
                alpha = 0.9
                ) +
   geom_text(color="white", size=2, label = "") +
@@ -178,8 +178,8 @@ ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) +
 
 
 ```
-```{r}
-lolli
+```{r include = TRUE}
+ggplotly(lolli)
 ```
 
 ***
@@ -400,7 +400,8 @@ kilmonger %>%
   theme_minimal() +
   scale_fill_viridis_c() +
   geom_vline(xintercept = 50, linetype="dotted", 
-                color = "red", size=1)
+                color = "red", size=1) 
+  
 
 ```
 
