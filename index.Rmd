@@ -31,6 +31,7 @@ library(grid)
 library(gridExtra)
 library(ggplot2)
 library(Rmisc)
+library(audio)
 
 
 ```
@@ -150,11 +151,9 @@ Tempo {.storyboard}
 
 ```{r, include = FALSE}
 wakanda <-
-  get_tidy_audio_analysis("2mjbf9ZvCoYqTi0RZ2FTUJ") %>%
+  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
   select(segments) %>%
   unnest(segments)
-
-
 
 
 ```
@@ -168,7 +167,7 @@ p1 <- wakanda %>%
   mutate(delta_loudness = loudness_max - lag(loudness_max)) %>%
   ggplot(aes(x = loudness_max_time, y = pmax(0, delta_loudness))) +
   geom_line() +
-  xlim(0, 30) +
+  xlim(0, 140) +
   theme_minimal() +
   labs(x = "Time (s)", y = "Novelty")
 
@@ -199,7 +198,7 @@ p2 <- wakanda %>%
 
 
 ```{r include = FALSE}
-wakanda2 <- get_tidy_audio_analysis("2mjbf9ZvCoYqTi0RZ2FTUJ")
+wakanda2 <- get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs")
 ```
 
 ```{r include = FALSE}
@@ -234,6 +233,9 @@ print(a, vp = vplayout(2, 1:2))
 plots <- list(p1, p2)
 ```
 
+```{r}
+
+```
 
 ***
 
