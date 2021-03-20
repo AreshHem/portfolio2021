@@ -240,7 +240,10 @@ plots <- list(p1, p2)
 ***
 
 
+For tempo i've chosen the song Kilmonger from the Black Panther's score. I think this was an interesting song to analyse because of its different layers it contains. In the beginning you can hear a flute, which represents kilmonger's African background. The flute is pitched down and escalates into chaos. The next layer are the strings and they go up in arpeggios. These escalate and grow bigger. Then suddenly the music cuts out and 808 drums start to kick. It feels dangerous and they come out of nowhere. They have a really low bass and sound like heartbeats. The last layer is the trap beat, representing him coming from Oakland. 
 
+'' note / 
+I want to show these layers with lines in the plots and be more specific about what happens with the changes in tempo.  
 
 
 
@@ -277,8 +280,8 @@ ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) +
                alpha = 0.9
                ) +
   geom_text(color="white", size=2, label = "") +
-  labs(title="Diverging Lollipop Chart", 
-       subtitle="Normalized mileage from 'mtcars': Lollipop") + 
+  labs(title="Comparing different scores", 
+       subtitle="Ludwig Göransson") + 
   ylim(0, 1) +
   coord_flip()+
   scale_color_viridis(alpha = 1, begin = 0.9, end = 0.051, direction = 1,
