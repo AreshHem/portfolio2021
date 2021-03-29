@@ -245,7 +245,7 @@ composers <-
 
 <!-- stat Plot --> 
 
-preface {.storyboard}
+Preface {.storyboard}
 =========================================
 
 ### statistics
@@ -256,8 +256,8 @@ ggstatsplot::ggcorrmat(
   sig.level = 0.005,
   cor.vars = playlist_name:acousticness,
   cor.vars.names = c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"),
-  title = "Correlalogram for length measures for Iris species",
-  subtitle = "Iris dataset by Anderson",
+  title = "Correlalogram for Spotify's API variables",
+  subtitle = "Ludwig Göransson's Scores",
   caption = expression(
     paste(
       italic("Note"),
@@ -271,7 +271,7 @@ ggstatsplot::ggcorrmat(
 ```
 
 ***
-<h2>Hi there! </h2> For this research I am going to look at film composer and music producer Ludwig Ludwig Göransson. I took data on nine of his latsest filmscores from the Spotify API, and combined all the findings in this chart. Because his database is quite big, i needed to zoom in to only certain playlists and variables. I was curious beforehand if i could find some significant relations between different variables, to build my story on. As you can see the variable accousticness has twee negative (significant) relationships. In my next pages i'm going to try to see what these changes mean and if i can show them in different ways. 
+<h2>Hi there! </h2> For this research I am going to look at film composer and music producer Ludwig Göransson. I took data on nine of his latest film-scores from the Spotify API, and combined all the findings in this Correlalogram. Because his database is quite big, I needed to zoom in to only certain playlists and variables. I was curious beforehand if I could find some significant relations between different variables, to build my story on. As you can see the variable accousticness has two negative (significant) correlations. In the following pages I'm going to research what these changes mean and if I can show them in different ways. 
 
 
 
@@ -306,104 +306,6 @@ ggstatsplot::ggbetweenstats(
 
 
 
-
-<!-- Chroma Plot --> 
-
-Ludde {.storyboard}
-=========================================
-
-### Ludwig Ludwig
-
-```{r include = FALSE}
-data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
-```
-
-```{r include = FALSE}
-
-data <- as.matrix(data)
-
-```
-
-```{r include = FALSE}
-chordDiagram(data)
-```
-
-
-```{r include = FALSE}
-
-chordDiagram(data, annotationTrack = "grid", preAllocateTracks = 1)
-
-circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
-  xlim = get.cell.meta.data("xlim")
-  ylim = get.cell.meta.data("ylim")
-  sector.name = get.cell.meta.data("sector.index")
-
-circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.6)
-  
-
-circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
-              sector.index = sector.name, track.index = 2)
-}, bg.border = NA)
-```
-
-
-```{r include = FALSE}
-
-
-data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
-
-```
-
-```{r include = FALSE}
-data <- as.matrix(data)
-
-```
-
-```{r include = FALSE}
-col = c(KRD012="#330033" , KRD022="#330033" , KRD026="#330033",
-             KRD070="#330033" , KRD077="#330033" , KRD096="#330033", 
-             KRD128="#330033" , KRD153="#330033", KRD140="#FF3300", 
-             KRD162="#3399CC" , KRD175="#3399CC" , KRD197="#3399CC", 
-             KRD172="#FFCC00" , KRD174="#FFCC00" , KRD171="#006600",  
-             KRD186="#00CCFF" , KRD202="#99CC00" ,  NRPS= "grey", NRPS.like= "grey", Type.1.PKS= "grey", Type.2.PKS= "grey",Type.3.PKS= "grey",
-             hglE.KS= "grey", Terpene= "grey", Betalactone= "grey",
-             Siderophore= "grey", Butyrolactone= "grey", 
-             Arylpolyene= "grey", Ectoine= "grey", LAP= "grey", 
-             Lassopeptide= "grey", Bacteriocin= "grey", 
-             Hybrid= "grey")
-
-```
-
-```{r include = TRUE}
-
-c <- chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
-
-
-circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
-  xlim = get.cell.meta.data("xlim")
-  ylim = get.cell.meta.data("ylim")
-  sector.name = get.cell.meta.data("sector.index")
-
-
-  
-circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.6)
-
-
-circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
-              sector.index = sector.name, track.index = 2)
-}, bg.border = NA)
-
-
-dev.copy(jpeg,'plot.png', width=8, height=8, units="in", res=3500)
-dev.off()
-
-
-```
-***
-
-chorddiagram
 
 
 Analysis {.storyboard}
@@ -456,6 +358,7 @@ ggplotly(lolli)
 
 ***
 
+Again looking at acousticness, you'll see a significant difference between Fruitvale station (romance) and Tenet (action). I used this chart to pick out certain tracks that will be analyzed on a deeper level later on. 
 
 ### Introduction
 
@@ -635,6 +538,110 @@ ggplotly(scatter2)
 ***
 
 Genres
+
+
+<!-- Chroma Plot --> 
+
+Ludde {.storyboard}
+=========================================
+
+### Ludwig Ludwig
+
+```{r include = FALSE}
+data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
+```
+
+```{r include = FALSE}
+
+data <- as.matrix(data)
+
+```
+
+```{r include = FALSE}
+chordDiagram(data)
+```
+
+
+```{r include = FALSE}
+
+chordDiagram(data, annotationTrack = "grid", preAllocateTracks = 1)
+
+circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+
+circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
+              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.6)
+  
+
+circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
+              sector.index = sector.name, track.index = 2)
+}, bg.border = NA)
+```
+
+
+```{r include = FALSE}
+
+
+data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
+
+```
+
+```{r include = FALSE}
+data <- as.matrix(data)
+
+```
+
+```{r include = FALSE}
+col = c(KRD012="#330033" , KRD022="#330033" , KRD026="#330033",
+             KRD070="#330033" , KRD077="#330033" , KRD096="#330033", 
+             KRD128="#330033" , KRD153="#330033", KRD140="#FF3300", 
+             KRD162="#3399CC" , KRD175="#3399CC" , KRD197="#3399CC", 
+             KRD172="#FFCC00" , KRD174="#FFCC00" , KRD171="#006600",  
+             KRD186="#00CCFF" , KRD202="#99CC00" ,  NRPS= "grey", NRPS.like= "grey", Type.1.PKS= "grey", Type.2.PKS= "grey",Type.3.PKS= "grey",
+             hglE.KS= "grey", Terpene= "grey", Betalactone= "grey",
+             Siderophore= "grey", Butyrolactone= "grey", 
+             Arylpolyene= "grey", Ectoine= "grey", LAP= "grey", 
+             Lassopeptide= "grey", Bacteriocin= "grey", 
+             Hybrid= "grey")
+
+```
+
+```{r out.width= "50%"}
+
+c <- chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
+
+
+circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+
+
+  
+circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
+              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.4)
+
+
+circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
+              sector.index = sector.name, track.index = 2)
+}, bg.border = NA)
+
+
+
+```
+
+
+
+
+***
+
+chorddiagram
+
+
+
+
 
 Saturation {.storyboard}
 =========================================
@@ -973,6 +980,111 @@ What key? {.storyboard}
 
 ### Where are my keys?
 
+Presto {.storyboard}
+=========================================
+
+### Wakanda
+
+
+```{r, include = FALSE}
+wakanda <-
+  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
+  select(segments) %>%
+  unnest(segments)
+
+
+```
+
+
+
+```{r include = FALSE}
+p1 <- wakanda %>%
+  mutate(loudness_max_time = start + loudness_max_time) %>%
+  arrange(loudness_max_time) %>%
+  mutate(delta_loudness = loudness_max - lag(loudness_max)) %>%
+  ggplot(aes(x = loudness_max_time, y = pmax(0, delta_loudness))) +
+  geom_line() +
+  xlim(0, 140) +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "Novelty")
+
+```
+
+
+```{r include = FALSE}
+p2 <- wakanda %>%
+  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
+  arrange(start) %>%
+  mutate(pitches = map2(pitches, lag(pitches), `-`)) %>%
+  slice(-1) %>%
+  compmus_gather_chroma() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = pmax(0, value)
+    )
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  xlim(0, 30) +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_classic()
+```
+
+
+```{r include = TRUE}
+wakanda2 <- get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs")
+```
+
+
+```{r include = FALSE}
+
+
+p3 <- wakanda2 %>%
+  tempogram(window_size = 8, hop_size = 1, cyclic = FALSE) %>%
+  ggplot(aes(x = time, y = bpm, fill = power)) +
+  geom_raster() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Tempo (BPM)") +
+  theme_classic()
+
+
+```
+
+
+```{r include = TRUE}
+a <- p1
+b <- p2
+c <- p3
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 2)))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
+print(b, vp = vplayout(1, 1))
+print(c, vp = vplayout(1, 2))
+print(a, vp = vplayout(2, 1:2))
+
+```
+
+```{r include = FALSE}
+plots <- list(p1, p2)
+```
+
+```{r}
+
+```
+
+***
+
+
+For tempo i've chosen the song Kilmonger from the Black Panther's score. I think this was an interesting song to analyse because of its different layers it contains. In the beginning you can hear a flute, which represents kilmonger's African background. The flute is pitched down and escalates into chaos. The next layer are the strings and they go up in arpeggios. These escalate and grow bigger. Then suddenly the music cuts out and 808 drums start to kick. It feels dangerous and they come out of nowhere. They have a really low bass and sound like heartbeats. The last layer is the trap beat, representing him coming from Oakland. 
+
+'' note / 
+I want to show these layers with lines in the plots and be more specific about what happens with the changes in tempo.  
+
+
 
 
 Classification and clustering {.storyboard}
@@ -1293,113 +1405,6 @@ halloween_dist %>%
 multiplot(c5, c6, cols = 2)
 
 ```
-
-
-Presto {.storyboard}
-=========================================
-
-### Tempogram
-
-
-```{r, include = FALSE}
-wakanda <-
-  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
-  select(segments) %>%
-  unnest(segments)
-
-
-```
-
-
-
-```{r include = FALSE}
-p1 <- wakanda %>%
-  mutate(loudness_max_time = start + loudness_max_time) %>%
-  arrange(loudness_max_time) %>%
-  mutate(delta_loudness = loudness_max - lag(loudness_max)) %>%
-  ggplot(aes(x = loudness_max_time, y = pmax(0, delta_loudness))) +
-  geom_line() +
-  xlim(0, 140) +
-  theme_minimal() +
-  labs(x = "Time (s)", y = "Novelty")
-
-```
-
-
-```{r include = FALSE}
-p2 <- wakanda %>%
-  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
-  arrange(start) %>%
-  mutate(pitches = map2(pitches, lag(pitches), `-`)) %>%
-  slice(-1) %>%
-  compmus_gather_chroma() %>%
-  ggplot(
-    aes(
-      x = start + duration / 2,
-      width = duration,
-      y = pitch_class,
-      fill = pmax(0, value)
-    )
-  ) +
-  geom_tile() +
-  scale_fill_viridis_c(guide = "none") +
-  xlim(0, 30) +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_classic()
-```
-
-
-```{r include = TRUE}
-wakanda2 <- get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs")
-```
-
-
-```{r include = FALSE}
-
-
-p3 <- wakanda2 %>%
-  tempogram(window_size = 8, hop_size = 1, cyclic = FALSE) %>%
-  ggplot(aes(x = time, y = bpm, fill = power)) +
-  geom_raster() +
-  scale_fill_viridis_c(guide = "none") +
-  labs(x = "Time (s)", y = "Tempo (BPM)") +
-  theme_classic()
-
-
-```
-
-### Wakanda
-
-```{r include = TRUE}
-a <- p1
-b <- p2
-c <- p3
-
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(2, 2)))
-vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-print(b, vp = vplayout(1, 1))
-print(c, vp = vplayout(1, 2))
-print(a, vp = vplayout(2, 1:2))
-
-```
-
-```{r include = FALSE}
-plots <- list(p1, p2)
-```
-
-```{r}
-
-```
-
-***
-
-
-For tempo i've chosen the song Kilmonger from the Black Panther's score. I think this was an interesting song to analyse because of its different layers it contains. In the beginning you can hear a flute, which represents kilmonger's African background. The flute is pitched down and escalates into chaos. The next layer are the strings and they go up in arpeggios. These escalate and grow bigger. Then suddenly the music cuts out and 808 drums start to kick. It feels dangerous and they come out of nowhere. They have a really low bass and sound like heartbeats. The last layer is the trap beat, representing him coming from Oakland. 
-
-'' note / 
-I want to show these layers with lines in the plots and be more specific about what happens with the changes in tempo.  
-
 
 
 
