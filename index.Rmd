@@ -1,5 +1,5 @@
 ---
-title: "Corpus Aresh Hemayat"
+title: "Portfolio Aresh Hemayat"
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
@@ -7,6 +7,7 @@ output:
     vertical_layout: fill
     theme: bootstrap
     css: stotel.css
+    logo: /home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/css/imgur.gif
 
     
 ---
@@ -31,8 +32,11 @@ library(grid)
 library(gridExtra)
 library(ggplot2)
 library(Rmisc)
+library(GGally)
 library(audio)
-
+library(circlize)
+library(rstantools)
+library(ggstatsplot)
 
 ```
 
@@ -141,7 +145,841 @@ ludwigsum <- ludwig %>%
 ludwigsum
 ```
 
+<!-- 2e componist --->
+
+```{r, include = FALSE}
+
+portman <- get_artist_audio_features('Rachel Portman')
+
+```
+
+
+```{r, include=FALSE}
+portmansum <- portman %>%
+  summarise(
+    mean_speechiness = mean(speechiness),
+    mean_acousticness = mean(acousticness),
+    mean_liveness = mean(liveness),
+    sd_speechiness = sd(speechiness),
+    sd_acousticness = sd(acousticness),
+    sd_liveness = sd(liveness),
+    median_speechiness = median(speechiness),
+    median_acousticness = median(acousticness),
+    median_liveness = median(liveness),
+    mad_speechiness = mad(speechiness),
+    mad_acousticness = mad(acousticness),
+    mad_liveness = mad(liveness)
+  )
+
+```
+
+<!-- 3e componist --->
+
+```{r, include = FALSE}
+
+ennio <- get_artist_audio_features('Ennio Morricone')
+
+```
+
+
+```{r, include=FALSE}
+enniosum <- ennio %>%
+  summarise(
+    mean_speechiness = mean(speechiness),
+    mean_acousticness = mean(acousticness),
+    mean_liveness = mean(liveness),
+    sd_speechiness = sd(speechiness),
+    sd_acousticness = sd(acousticness),
+    sd_liveness = sd(liveness),
+    median_speechiness = median(speechiness),
+    median_acousticness = median(acousticness),
+    median_liveness = median(liveness),
+    mad_speechiness = mad(speechiness),
+    mad_acousticness = mad(acousticness),
+    mad_liveness = mad(liveness)
+  )
+
+```
+<!-- 4e componist --->
+
+```{r, include = FALSE}
+
+zimmer <- get_artist_audio_features('Hans Zimmer')
+
+```
+
+
+```{r, include=FALSE}
+zimmersum <- zimmer %>%
+  summarise(
+    mean_speechiness = mean(speechiness),
+    mean_acousticness = mean(acousticness),
+    mean_liveness = mean(liveness),
+    sd_speechiness = sd(speechiness),
+    sd_acousticness = sd(acousticness),
+    sd_liveness = sd(liveness),
+    median_speechiness = median(speechiness),
+    median_acousticness = median(acousticness),
+    median_liveness = median(liveness),
+    mad_speechiness = mad(speechiness),
+    mad_acousticness = mad(acousticness),
+    mad_liveness = mad(liveness)
+  )
+
+```
+<!-- bind rows componist --->
+
+```{r, include=FALSE}
+composers <-
+  bind_rows(
+   
+      ludwigsum %>% mutate(category = "Ludwig Goransson"),
+    enniosum %>% mutate(category = "Ennio Morricone"),
+    portmansum %>% mutate(category = "Rachel Portman"),
+    zimmersum %>% mutate(category = "zimmersum")
+    
+
+  )
+```
+
+
+<!-- stat Plot --> 
+
+preface {.storyboard}
+=========================================
+
+### statistics
+```{r}
+ggstatsplot::ggcorrmat(
+  data = scores,
+  corr.method = "spearman",
+  sig.level = 0.005,
+  cor.vars = playlist_name:acousticness,
+  cor.vars.names = c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"),
+  title = "Correlalogram for length measures for Iris species",
+  subtitle = "Iris dataset by Anderson",
+  caption = expression(
+    paste(
+      italic("Note"),
+      ": X denotes correlation non-significant at ",
+      italic("p "),
+      "< 0.005; adjusted alpha"
+    )
+  )
+)
+
+```
+
+***
+<h2>Hi there! </h2> For this research I am going to look at film composer and music producer Ludwig Ludwig Göransson. I took data on nine of his latsest filmscores from the Spotify API, and combined all the findings in this chart. Because his database is quite big, i needed to zoom in to only certain playlists and variables. I was curious beforehand if i could find some significant relations between different variables, to build my story on. As you can see the variable accousticness has twee negative (significant) relationships. In my next pages i'm going to try to see what these changes mean and if i can show them in different ways. 
+
+
+
+
+
+### Significance?
+<!--
+```{r}
+ 
+stats <- genres %>% select(danceability, loudness, energy, instrumentalness, acousticness, valence,  playlist_name)
+```
+
+```{r}
+data(stats)
+ggpairs(stats, columns = 3:5, ggplot2::aes(colour=playlist_name)) + theme_calc(base_family = "Liberation Serif")
+```
+
+--> 
+```{r}
+ggstatsplot::ggbetweenstats(
+  data = stats,
+  x = playlist_name, 
+  y = acousticness,
+  messages = FALSE
+)
+```
+
+
+
+***
+<h3> Accousticness? </h3> So what actually is accousticness? It's not that difficult, and quite self-explanatory. It means how accoustic a track is. 
+
+
+
+
+<!-- Chroma Plot --> 
+
+Ludde {.storyboard}
+=========================================
+
+### Ludwig Ludwig
+
+```{r include = FALSE}
+data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
+```
+
+```{r include = FALSE}
+
+data <- as.matrix(data)
+
+```
+
+```{r include = FALSE}
+chordDiagram(data)
+```
+
+
+```{r include = FALSE}
+
+chordDiagram(data, annotationTrack = "grid", preAllocateTracks = 1)
+
+circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+
+circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
+              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.6)
+  
+
+circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
+              sector.index = sector.name, track.index = 2)
+}, bg.border = NA)
+```
+
+
+```{r include = FALSE}
+
+
+data <- read.csv("/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/composers.csv", row.names = 13)
+
+```
+
+```{r include = FALSE}
+data <- as.matrix(data)
+
+```
+
+```{r include = FALSE}
+col = c(KRD012="#330033" , KRD022="#330033" , KRD026="#330033",
+             KRD070="#330033" , KRD077="#330033" , KRD096="#330033", 
+             KRD128="#330033" , KRD153="#330033", KRD140="#FF3300", 
+             KRD162="#3399CC" , KRD175="#3399CC" , KRD197="#3399CC", 
+             KRD172="#FFCC00" , KRD174="#FFCC00" , KRD171="#006600",  
+             KRD186="#00CCFF" , KRD202="#99CC00" ,  NRPS= "grey", NRPS.like= "grey", Type.1.PKS= "grey", Type.2.PKS= "grey",Type.3.PKS= "grey",
+             hglE.KS= "grey", Terpene= "grey", Betalactone= "grey",
+             Siderophore= "grey", Butyrolactone= "grey", 
+             Arylpolyene= "grey", Ectoine= "grey", LAP= "grey", 
+             Lassopeptide= "grey", Bacteriocin= "grey", 
+             Hybrid= "grey")
+
+```
+
+```{r include = TRUE}
+
+c <- chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
+
+
+circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+
+
+  
+circos.text(mean(xlim), ylim[1] + 2.5, sector.name, 
+              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5), cex=0.6)
+
+
+circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2, 
+              sector.index = sector.name, track.index = 2)
+}, bg.border = NA)
+
+
+dev.copy(jpeg,'plot.png', width=8, height=8, units="in", res=3500)
+dev.off()
+
+
+```
+***
+
+chorddiagram
+
+
+Analysis {.storyboard}
+=========================================
+
+### Main
+
+```{r, include=FALSE}
+lolli <-
+  bind_rows(
+   
+      fruitvale %>% mutate(category = "Drama/Romance"),
+    creed2 %>% mutate(category = "Sport/Drama"),
+    tenet %>% mutate(category = "Action"),
+    panther %>% mutate(category = "Action")
+    
+
+  )
+
+```
+
+
+```{r include = TRUE}
+lolli <- lolli %>% mutate(track.name = fct_reorder(track.name, acousticness, last))%>%
+ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) + 
+  geom_point(stat='identity', fill="grey", size= 3) +
+  scale_size("track.popularity") +
+  geom_segment(aes(y = 0.5, 
+                   x = `track.name`, 
+                   yend = `acousticness`, 
+                   xend = `track.name`), 
+                   color = "orange",
+               alpha = 0.9
+               ) +
+  geom_text(color="white", size=2, label = "") +
+  labs(title="Comparing different scores", 
+       subtitle="Ludwig Göransson") + 
+  ylim(0, 1) +
+  coord_flip()+ scale_color_viridis(alpha = 1, begin = 0.01, end = 0.99, direction = 1,
+  discrete = TRUE, option = "viridis",
+) + theme_calc(base_family = "Liberation Serif")
+
+
+
+```
+
+```{r include = TRUE}
+ggplotly(lolli)
+```
+
+***
+
+
+### Introduction
+
+
+<!-- Second Plot --> 
+
+
+```{r}
+scatter <-scores %>%                    # Start with awards.
+  mutate(
+    mode = ifelse(mode == 0, "Minor", "Major")
+  ) %>%
+  ggplot(                     # Set up the plot.
+    aes(
+      x = acousticness,
+      y = instrumentalness,
+      size = loudness,
+      colour = mode
+    )
+  ) +
+  geom_point() +              # Scatter plot.
+  geom_rug(size = 0.1) +      # Add 'fringes' to show data distribution.
+  geom_text(                  # Add text labels from above.
+    aes(
+      x = acousticness,
+      y = instrumentalness,
+      label = label,
+      color = mode
+    ),
+    data = 
+      tibble(
+        label = c("Kilmonger", "RAINY NIGHT IN TALLINN"),
+        category = c("(2017) Black Panther", "(2020) Tenet"),
+        acousticness = c(0.5230, 0.1090),
+        instrumentalness = c(0.932, 0.869000
+)
+      ),
+    colour = "black",         # Override colour (not mode here).
+    size = 2.5,                 # Override size (not loudness here).
+    hjust = "left",           # Align left side of label with the point.
+    vjust = "bottom",         # Align bottom of label with the point.
+    nudge_x = -0.05,          # Nudge the label slightly left.
+    nudge_y = 0.02            # Nudge the label slightly up.
+  ) +
+  facet_wrap(~category) +     # Separate charts per playlist.
+  scale_x_continuous(         # Fine-tune the x axis.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),   # Use grid-lines for quadrants only.
+    minor_breaks = NULL       # Remove 'minor' grid-lines.
+  ) +
+  scale_y_continuous(         # Fine-tune the y axis in the same way.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),
+    minor_breaks = NULL
+  ) +
+  scale_colour_brewer(        # Use the Color Brewer to choose a palette.
+    type = "qual",            # Qualitative set.
+    palette = "Set2"        # Name of the palette is 'Paired'.
+  ) +
+  scale_size_continuous(      # Fine-tune the sizes of each point.
+    trans = "exp",            # Use an exp transformation to emphasise loud.
+    guide = "none"            # Remove the legend for size.
+  ) +
+  theme_light() +             # Use a simpler theme.
+  labs(                       # Make the titles nice.
+    x = "Acousticness",
+    y = "Instrumentalness",
+    colour = "Mode"
+  ) +
+  theme_calc() +
+  
+  scale_color_viridis(alpha = 1, begin = 0.61, end = 0.3, direction = 1,
+  discrete = TRUE, option = "viridis",
+)
+  
+
+
+
+```
+
+
+```{r}
+ggplotly(scatter)
+```
+
+
+***
+
+As you can see Black Panther's has some really interesting findings. For example, "Kilmonger challenge" has one of the highest loudness (as seen in the point size), and "Kilmonger" has one of the highest instrumentalness value.  Another interesting finding is the song "Rainy night in Talin" from Tenet. This song has a really high acousticness, high energy and a BPM of 130. 
+
+
+
+
+<!-- Third Plot --> 
+
+
+
+### Sci-fi or action?
+
+```{r}
+scatter2 <-genres %>%                    # Start with awards.
+  mutate(
+    mode = ifelse(mode == 0, "Minor", "Major")
+  ) %>%
+  ggplot(                     # Set up the plot.
+    aes(
+      x = acousticness,
+      y = instrumentalness,
+      size = loudness,
+      colour = category
+    )
+  ) +
+  geom_point(alpha = 9/10) +              # Scatter plot.
+  geom_rug(size = 0.5) +      # Add 'fringes' to show data distribution.
+  geom_text(                  # Add text labels from above.
+    aes(
+      x = acousticness,
+      y = instrumentalness,
+      label = label,
+      color = category
+    ),
+    data = 
+      tibble(
+        label = c("", ""),
+        category = c("", ""),
+        acousticness = c(0.090, 0.123),
+        instrumentalness = c(0.101, 0.967)
+      ),
+    colour = "black",         # Override colour (not mode here).
+    size = 3,                 # Override size (not loudness here).
+    hjust = "left",           # Align left side of label with the point.
+    vjust = "bottom",         # Align bottom of label with the point.
+    nudge_x = -0.05,          # Nudge the label slightly left.
+    nudge_y = 0.02            # Nudge the label slightly up.
+  ) +
+  facet_wrap(~mode) +     # Separate charts per playlist.
+  scale_x_continuous(         # Fine-tune the x axis.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),   # Use grid-lines for quadrants only.
+    minor_breaks = NULL       # Remove 'minor' grid-lines.
+  ) +
+  scale_y_continuous(         # Fine-tune the y axis in the same way.
+    limits = c(0, 1),
+    breaks = c(0, 0.50, 1),
+    minor_breaks = NULL
+  ) +
+  scale_colour_brewer(        # Use the Color Brewer to choose a palette.
+    type = "qual",            # Qualitative set.
+    palette = "Set2"        # Name of the palette is 'Paired'.
+  ) +
+  scale_size_continuous(      # Fine-tune the sizes of each point.
+    trans = "exp",            # Use an exp transformation to emphasise loud.
+    guide = "none"            # Remove the legend for size.
+  ) +
+  theme_light() +             # Use a simpler theme.
+  labs(                       # Make the titles nice.
+    x = "Acousticness",
+    y = "Instrumentalness",
+    colour = "Genre"
+  ) +
+  scale_color_viridis(alpha = 1, begin = 0.9, end = 0.05, direction = 1,
+  discrete = TRUE, option = "viridis"
+) + theme_calc(base_family = "Liberation Serif")
+
+
+
+```
+
+
+```{r}
+ggplotly(scatter2)
+```
+
+
+
+
+***
+
+Genres
+
+Saturation {.storyboard}
+=========================================
+
+###
+
+```{r}
+kilmonger <-
+  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+
+```
+
+```{r}
+kilmonger %>%
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
+  compmus_gather_chroma() %>% 
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal(base_family = "Liberation Serif") +
+  scale_fill_viridis_c() +
+  geom_vline(xintercept = 50, linetype="dotted", 
+                color = "red", size=1) 
+  
+
+```
+
+***
+
+tone height/chroma/pitch class
+
+
+
+chroma features
+
+chromagram
+
+logarithmic compression
+
+
+portamento
+
+transposition
+
+
+Chromagram kilmonger
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Dynamic Time Warping
+
+
+```{r include = FALSE}
+
+## wakanda original
+original <-
+  get_tidy_audio_analysis("2mjbf9ZvCoYqTi0RZ2FTUJ") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+## wakanda remix
+remix <-
+  get_tidy_audio_analysis("1u6PWhxFTHs0OuTfh5Mh79") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+
+
+```
+
+```{r include = TRUE}
+compmus_long_distance(
+  original %>% mutate(pitches = map(pitches, compmus_normalise, "chebyshev")),
+  remix %>% mutate(pitches = map(pitches, compmus_normalise, "chebyshev")),
+  feature = pitches,
+  method = "euclidean"
+) %>%
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_equal() +
+  labs(x = "Wakanda Original", y = "Dj Dahi Remix", font.size=5) +
+  theme_minimal() +
+  scale_fill_viridis_b(guide = NULL)
+
+```
+
+***
+
+
+dynamic time warping(DTW)
+
+
+basic approach
+feature space
+local cost measure
+local distance measure
+
+cosine distance
+
+warping path
+
+
+
+
+
+
+###
+
+Saturation {.storyboard}
+=========================================
+
+```{r include = FALSE}
+rnit <-
+  get_tidy_audio_analysis("5r6l0sPvfeAPjQ67fCgOwG") %>% # Change URI.
+  compmus_align(tatums, segments) %>%                     # Change `bars`
+  select(tatums) %>%                                      #   in all three
+  unnest(tatums) %>%                                      #   of these lines.
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "acentre", norm = "manhattan"              # Change summary & norm.
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "max", norm = "chebyshev"              # Change summary & norm.
+      )
+  )
+```
+
+```{r include = FALSE}
+liab <-
+  get_tidy_audio_analysis("7640a8QzLN6txA7Fa2q8oo") %>% # Change URI.
+  compmus_align(tatums, segments) %>%                     # Change `bars`
+  select(tatums) %>%                                      #   in all three
+  unnest(tatums) %>%                                      #   of these lines.
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "acentre", norm = "manhattan"              # Change summary & norm.
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "max", norm = "chebyshev"              # Change summary & norm.
+      )
+  )
+```
+
+```{r include = FALSE}
+dt <-
+  get_tidy_audio_analysis("5YO81jyIFnaqF7v0qMwuU7") %>% # Change URI.
+  compmus_align(tatums, segments) %>%                     # Change `bars`
+  select(tatums) %>%                                      #   in all three
+  unnest(tatums) %>%                                      #   of these lines.
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "acentre", norm = "manhattan"              # Change summary & norm.
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "max", norm = "chebyshev"              # Change summary & norm.
+      )
+  )
+```
+
+
+```{r include = FALSE}
+cg1 <- liab %>%
+  compmus_gather_timbre() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = basis,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_calc(base_family = "Liberation Serif")
+```
+
+```{r}
+cg2 <- rnit %>%
+  compmus_gather_timbre() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = basis,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_calc(base_family = "Liberation Serif")
+```
+
+```{r}
+cg3 <- dt %>%
+  compmus_gather_timbre() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = basis,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_calc(base_family = "Liberation Serif")
+```
+### Cepstograms
+
+
+
+```{r include = TRUE}
+a <- cg1
+b <- cg2
+c <- cg3
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 2)))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
+print(b, vp = vplayout(1, 1))
+print(c, vp = vplayout(1, 2))
+print(a, vp = vplayout(2, 1:2))
+
+```
+
+```{r include = FALSE}
+plots <- list(cg1, cg2)
+```
+
+```{r}
+
+```
+
+
+***
+
+compmus_normalise to normalise audio features using common techniques, including
+
+compmus_normalise to normalise audio features using common techniques, including
+
+compmus_align aligns two levels of structure with each other, e.g., Spotify segments with 
+
+compmus_summarise helps to summarise features within higher levels of structure, including: 
+
+<html>
+<iframe src="https://open.spotify.com/embed/track/7640a8QzLN6txA7Fa2q8oo" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></html>
+
+### Self-Similarty Matrices
+
+
+```{r}
+ rnit %>%
+  compmus_self_similarity(timbre, "chebyshev") %>% 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_calc(base_family = "Liberation Serif") +
+  labs(x = "", y = "")
+```
+
+
+
+***
+
+We have seen that the principles of repetition, homogeneity, and novelty are fundamental for partitioning a given audio recording into musically meaningful structural elements. To study musical structures and their mutual relations, one general idea is to convert the music signal into a suitable feature sequence and then to compare each element of the feature sequence with all other elements of the sequence. This results in a self-similarity matrix(SSM), a tool which is of fundamental importance not only for music structure analysis but also for the analysis of many kinds of time series
+
+
+
+What key? {.storyboard}
+=========================================
+
+### Where are my keys?
+
+
+
+Classification and clustering {.storyboard}
+=========================================
+
 <!-- classification/clustering  -->
+
 ```{r include = FALSE}
 
 library(compmus)
@@ -355,12 +1193,10 @@ c6 <-portfolio_features %>%
   )
 
 ```
-Classification and clustering {.storyboard}
-=========================================
 
 ### Classification
 
-
+ 
 
 ```{r include = TRUE}
 
@@ -459,12 +1295,8 @@ multiplot(c5, c6, cols = 2)
 ```
 
 
-
-<!-- Tempo  -->
-
-Tempo {.storyboard}
+Presto {.storyboard}
 =========================================
-
 
 ### Tempogram
 
@@ -517,9 +1349,10 @@ p2 <- wakanda %>%
 ```
 
 
-```{r include = FALSE}
+```{r include = TRUE}
 wakanda2 <- get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs")
 ```
+
 
 ```{r include = FALSE}
 
@@ -534,6 +1367,8 @@ p3 <- wakanda2 %>%
 
 
 ```
+
+### Wakanda
 
 ```{r include = TRUE}
 a <- p1
@@ -568,281 +1403,12 @@ I want to show these layers with lines in the plots and be more specific about w
 
 
 
-Analysis {.storyboard}
-=========================================
-<!-- main 
-### Main
-
-```{r, include=FALSE}
-lolli <-
-  bind_rows(
-   
-      fruitvale %>% mutate(category = "Drama/Romance"),
-    creed2 %>% mutate(category = "Sport/Drama"),
-    tenet %>% mutate(category = "Action")
-    
-
-  )
-
-```
-
-
-```{r include = FALSE}
-lolli <- lolli %>% mutate(track.name = fct_reorder(track.name, acousticness, last))%>%
-ggplot(aes(x = `track.name`, y = `acousticness`, color = track.album.name)) + 
-  geom_point(stat='identity', fill="grey", size= 3) +
-  scale_size("track.popularity") +
-  geom_segment(aes(y = 0.5, 
-                   x = `track.name`, 
-                   yend = `acousticness`, 
-                   xend = `track.name`), 
-                   color = "orange",
-               alpha = 0.9
-               ) +
-  geom_text(color="white", size=2, label = "") +
-  labs(title="Comparing different scores", 
-       subtitle="Ludwig Göransson") + 
-  ylim(0, 1) +
-  coord_flip()+
-  scale_color_viridis(alpha = 1, begin = 0.9, end = 0.051, direction = 1,
-  discrete = TRUE, option = "inferno") + theme_calc(base_family = "Liberation Serif")
-
-
-
-```
-
-```{r include = TRUE}
-ggplotly(lolli)
-```
-
-***
--->
-
-### Introduction
-
-
-<!-- First Plot --> 
-
-
-```{r}
-scatter <-scores %>%                    # Start with awards.
-  mutate(
-    mode = ifelse(mode == 0, "Minor", "Major")
-  ) %>%
-  ggplot(                     # Set up the plot.
-    aes(
-      x = acousticness,
-      y = instrumentalness,
-      size = loudness,
-      colour = mode
-    )
-  ) +
-  geom_point() +              # Scatter plot.
-  geom_rug(size = 0.1) +      # Add 'fringes' to show data distribution.
-  geom_text(                  # Add text labels from above.
-    aes(
-      x = acousticness,
-      y = instrumentalness,
-      label = label,
-      color = mode
-    ),
-    data = 
-      tibble(
-        label = c("Kilmonger", "RAINY NIGHT IN TALLINN"),
-        category = c("(2017) Black Panther", "(2020) Tenet"),
-        acousticness = c(0.5230, 0.1090),
-        instrumentalness = c(0.932, 0.869000
-)
-      ),
-    colour = "black",         # Override colour (not mode here).
-    size = 2.5,                 # Override size (not loudness here).
-    hjust = "left",           # Align left side of label with the point.
-    vjust = "bottom",         # Align bottom of label with the point.
-    nudge_x = -0.05,          # Nudge the label slightly left.
-    nudge_y = 0.02            # Nudge the label slightly up.
-  ) +
-  facet_wrap(~category) +     # Separate charts per playlist.
-  scale_x_continuous(         # Fine-tune the x axis.
-    limits = c(0, 1),
-    breaks = c(0, 0.50, 1),   # Use grid-lines for quadrants only.
-    minor_breaks = NULL       # Remove 'minor' grid-lines.
-  ) +
-  scale_y_continuous(         # Fine-tune the y axis in the same way.
-    limits = c(0, 1),
-    breaks = c(0, 0.50, 1),
-    minor_breaks = NULL
-  ) +
-  scale_colour_brewer(        # Use the Color Brewer to choose a palette.
-    type = "qual",            # Qualitative set.
-    palette = "Set2"        # Name of the palette is 'Paired'.
-  ) +
-  scale_size_continuous(      # Fine-tune the sizes of each point.
-    trans = "exp",            # Use an exp transformation to emphasise loud.
-    guide = "none"            # Remove the legend for size.
-  ) +
-  theme_light() +             # Use a simpler theme.
-  labs(                       # Make the titles nice.
-    x = "Acousticness",
-    y = "Instrumentalness",
-    colour = "Mode"
-  ) +
-  theme_calc() +
-  
-  scale_color_viridis(alpha = 1, begin = 0.61, end = 0.3, direction = 1,
-  discrete = TRUE, option = "viridis",
-)
-  
-
-
-
-```
-
-
-```{r}
-ggplotly(scatter)
-```
-
-
-***
-<h2>Hi there! </h2> For this reasearch I am going to look at film composer and music producer Ludwig Ludwig Göransson. In this chart you can see somehow what changes he went trough, from 2013 until 2020. I want to analyse some of his most popular tracks. What made them popular and is there a relation between different popular songs? As you can see Black Panther's has some really interesting findings. For example, "Kilmonger challenge" has one of the highest loudness (as seen in the point size), and "kilmonger" has one of the highest instrumentalness value.  Another interesting finding is the song "Rainy night in Talin" from Tenet. This song has a really high acousticness, high energy and a BPM of 130. 
-
-
-
-// notitie
-
-Ik heb het idee van mijn portoflio uitgewerkt in een word documment, maar nog niet in een duidelijke lijn. Ik had in gedachte om nog eventueel het nummer "The Mandalorian" toe te voegen omdat dit zijn meest populaire nummer is. Verder is het duidelijk te zien (op de volgende storyboard) dat er verschillen zijn tussen verschillende genre's. Ik weet alleen nog niet of ik hier verder op in wil gaan, en hoe ik dit dan kan aantonen in de individuele track analyses. Ik denk dat het voor mijn onderzoeksvraag het best is als ik mij richt op de poplariteit en bevindingen in deze chart. 
 
 
 
 
 
 
+ 
 
-
-### Sci-fi or action?
-
-```{r}
-scatter2 <-genres %>%                    # Start with awards.
-  mutate(
-    mode = ifelse(mode == 0, "Minor", "Major")
-  ) %>%
-  ggplot(                     # Set up the plot.
-    aes(
-      x = acousticness,
-      y = instrumentalness,
-      size = loudness,
-      colour = category
-    )
-  ) +
-  geom_point(alpha = 9/10) +              # Scatter plot.
-  geom_rug(size = 0.5) +      # Add 'fringes' to show data distribution.
-  geom_text(                  # Add text labels from above.
-    aes(
-      x = acousticness,
-      y = instrumentalness,
-      label = label,
-      color = category
-    ),
-    data = 
-      tibble(
-        label = c("", ""),
-        category = c("", ""),
-        acousticness = c(0.090, 0.123),
-        instrumentalness = c(0.101, 0.967)
-      ),
-    colour = "black",         # Override colour (not mode here).
-    size = 3,                 # Override size (not loudness here).
-    hjust = "left",           # Align left side of label with the point.
-    vjust = "bottom",         # Align bottom of label with the point.
-    nudge_x = -0.05,          # Nudge the label slightly left.
-    nudge_y = 0.02            # Nudge the label slightly up.
-  ) +
-  facet_wrap(~mode) +     # Separate charts per playlist.
-  scale_x_continuous(         # Fine-tune the x axis.
-    limits = c(0, 1),
-    breaks = c(0, 0.50, 1),   # Use grid-lines for quadrants only.
-    minor_breaks = NULL       # Remove 'minor' grid-lines.
-  ) +
-  scale_y_continuous(         # Fine-tune the y axis in the same way.
-    limits = c(0, 1),
-    breaks = c(0, 0.50, 1),
-    minor_breaks = NULL
-  ) +
-  scale_colour_brewer(        # Use the Color Brewer to choose a palette.
-    type = "qual",            # Qualitative set.
-    palette = "Set2"        # Name of the palette is 'Paired'.
-  ) +
-  scale_size_continuous(      # Fine-tune the sizes of each point.
-    trans = "exp",            # Use an exp transformation to emphasise loud.
-    guide = "none"            # Remove the legend for size.
-  ) +
-  theme_light() +             # Use a simpler theme.
-  labs(                       # Make the titles nice.
-    x = "Acousticness",
-    y = "Instrumentalness",
-    colour = "Genre"
-  ) +
-  scale_color_viridis(alpha = 1, begin = 0.9, end = 0.05, direction = 1,
-  discrete = TRUE, option = "inferno"
-) + theme_calc(base_family = "Liberation Serif")
-
-
-
-```
-
-
-```{r}
-ggplotly(scatter2)
-```
-
-
-
-
-***
-
-Genres
-
-Chroma {.storyboard}
-=========================================
-
-###
-
-```{r}
-kilmonger <-
-  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
-  select(segments) %>%
-  unnest(segments) %>%
-  select(start, duration, pitches)
-
-```
-
-```{r}
-kilmonger %>%
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
-  compmus_gather_chroma() %>% 
-  ggplot(
-    aes(
-      x = start + duration / 2,
-      width = duration,
-      y = pitch_class,
-      fill = value
-    )
-  ) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_minimal() +
-  scale_fill_viridis_c() +
-  geom_vline(xintercept = 50, linetype="dotted", 
-                color = "red", size=1) 
-  
-
-```
-
-***
-Killmonger
-
-### TENET
-
-
-###
 
