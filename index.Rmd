@@ -609,7 +609,11 @@ col = c(mean_speechiness="#f39f7e" , mean_acousticness="#f3a97e" , mean_liveness
 
 ```
 
+<<<<<<< HEAD
 ```{r echo=FALSE, out.width="50%"}
+=======
+```{r out.width="50%"}
+>>>>>>> 77ccec3082d5deeb681d6f2b4c0b74f429174b43
 
 chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
 
