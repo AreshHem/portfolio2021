@@ -609,9 +609,9 @@ col = c(mean_speechiness="#f39f7e" , mean_acousticness="#f3a97e" , mean_liveness
 
 ```
 
-```{r out.width= "50%"}
+```{r echo=FALSE, out.width="50%"}
 
-c <- chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
+chordDiagram(data, grid.col = col, annotationTrack = "grid", preAllocateTracks = 1, scale = FALSE)
 
 
 circos.trackPlotRegion(track.index = 2, panel.fun = function(x, y) {
@@ -644,7 +644,7 @@ chorddiagram
 
 
 
-Saturation {.storyboard}
+Chroma {.storyboard}
 =========================================
 
 ###
