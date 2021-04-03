@@ -309,7 +309,7 @@ ggstatsplot::ggbetweenstats(
 
 
 ***
-<b> Accousticness? </b> So what actually is accousticness? It's not that difficult, and quite self-explanatory. It means how accoustic a track is. 
+<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. 
 
 
 
@@ -454,7 +454,7 @@ ggplotly(scatter)
 
 ***
 
-As you can see Black Panther's has some really interesting findings. For example, "Kilmonger challenge" has one of the highest loudness (as seen in the point size), and "Kilmonger" has one of the highest Instrumentalness value.  Another interesting finding is the song "Rainy night in Talin" from Tenet. This song has a really high Acousticness, high energy and a BPM of 130. The findings above are on the ''action/superhero" spectrum, and I want to compare these with songs from the opposite genre "Romance". 
+As you can see Black Panther's has some really interesting findings. For example, "Kilmonger challenge" has one of the highest loudness (as seen in the point size), and "Kilmonger" has one of the highest Instrumentalness value.  Another interesting finding is the song "Rainy night in Talin" from Tenet. This song has a really high acousticness, high energy and a BPM of 130. The findings above are on the ''action/superhero" spectrum, and I want to compare these with songs from its opposite genre: "Romance". 
 
 
 
