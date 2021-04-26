@@ -1,5 +1,7 @@
 ---
-title: "Portfolio Aresh Hemayat"
+title: "Computational Musicology"
+author: 'Aresh Hemayat'
+date:   'April 2021'
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
@@ -7,7 +9,7 @@ output:
     vertical_layout: fill
     theme: bootstrap
     css: stotel.css
-    logo: /home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/css/imgur.gif
+    logo: /home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/css/imgurr.gif
 
     
 ---
@@ -37,7 +39,52 @@ library(audio)
 library(circlize)
 library(rstantools)
 library(ggstatsplot)
+library(knitr)
+library(png)
 
+```
+
+
+
+
+<!-- images -->
+
+```{r include = FALSE}
+img1_path <- "/home/stotel/Downloads/l1110789_copy_-_embed_2018-compressed.png"
+img1 <- readPNG(img1_path, native = TRUE, info = TRUE)
+attr(img1, "info")
+```
+
+
+
+```{r include = FALSE}
+img1_path <- "/home/stotel/Downloads/l1110789_copy_-_embed_2018-compressed.png"
+img1 <- readPNG(img1_path, native = TRUE, info = TRUE)
+attr(img1, "info")
+```
+
+```{r include = FALSE}
+img2_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/tempogram.png"
+img2 <- readPNG(img2_path, native = TRUE, info = TRUE)
+attr(img2, "info")
+```
+
+```{r include = FALSE}
+img3_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/presto.png"
+img3 <- readPNG(img3_path, native = TRUE, info = TRUE)
+attr(img3, "info")
+```
+
+```{r include = FALSE}
+img4_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/ai444.png"
+img4 <- readPNG(img4_path, native = TRUE, info = TRUE)
+attr(img4, "info")
+```
+
+```{r include = FALSE}
+img5_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/ai33.png"
+img5 <- readPNG(img5_path, native = TRUE, info = TRUE)
+attr(img5, "info")
 ```
 
 <!-- playlists --> 
@@ -247,7 +294,25 @@ composers <-
 Preface {.storyboard}
 =========================================
 
-### statistics
+### statistics {data-commentary-width=550}
+
+```{r}
+# All defaults
+include_graphics(img1_path)
+```
+
+
+***
+<h2>Computational Musicology  </h2> In short, the use of statistical techniques and statistics to study musical systems, which is more or less synonymous with the computational music theory or computer science (notes, chords, rhythms, etc., and patterns thereof). Computer musicology is a type of data science by combining computer, statistics, and information. Yet computer musicology is strongly within the modern humanities because of the scientific dimension of music and reflects on the same issues as conventional humanities. Corpus studies are probably the most frequent form of computer musicology project. In a vast selection of works of music, a corpus analysis uses algorithms to interpret statistical patterns.
+
+
+
+
+
+
+
+
+
 ```{r}
 ggstatsplot::ggcorrmat(
   data = scores,
@@ -269,10 +334,7 @@ ggstatsplot::ggcorrmat(
 
 ```
 
-***
-<h2>Hi there! </h2> For this research I am going to look at film composer and music producer Ludwig Göransson. I took data on nine of his latest film-scores from the Spotify API, and combined all the findings in this Correlalogram. Because his database is quite big, I need to zoom in to only certain playlists and variables. I am curious  if I can find some significant relations between different variables, to build my story around. As you can see already the variable accousticness has two negative (significant) correlations. In the following pages I'm going to research what these changes mean and if I can show them in different ways. 
-
-
+I will look into film composer and producer Ludwig Göransson for this report. I have taken data on nine of his new Spotify  film scores and have combined all the results in the Correlalogram above. I have to zoom in to some playlist and variables because his database is very large. I'm excited to learn about my story if I can find important relationships between various variables. As you can already see there are two negative (important) correlations in the variable acousticness. I will analyse what these developments indicate and how I can show them in various ways in the following pages.
 
 
 
@@ -294,23 +356,32 @@ ggpairs(stats, columns = 3:5, ggplot2::aes(colour=playlist_name)) + theme_calc(b
 
 --> 
 ```{r include = TRUE}
-ggstatsplot::ggbetweenstats(
+  ggstatsplot::ggbetweenstats(
   data = scores,
   x = playlist_name, 
   y = acousticness,
   messages = TRUE,
-  textsize = ,
-  pairwise.comparisons = TRUE
+  textsize = 4,
+  pairwise.comparisons = TRUE,
+  outlier.tagging = TRUE,
+  outlier.coef = 1.5,
+  outlier.label.args = list(color = "red"),
+  outlier.label = track.name,
+  ggtheme = ggthemes::theme_calc(),
+  plot.type = "boxviolin",
+  package = "ggsci",
+  palette = "nrc_npg",
+  type = "robust"
+
   
   
-)
+) + scale_x_discrete(guide = guide_axis(n.dodge = 2)) 
 ```
 
 
 
 ***
-<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. 
-
+<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Goransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much better.
 
 
 
@@ -364,6 +435,7 @@ ggplotly(lolli)
 ```
 
 ***
+A first step in improving the interpretation of a certain signal is to divide into building blocks more usable for the following processing steps. If these blocks consist of sinusoidal functions, a method of this kind is often referred to as the Fourier analysis. Sinusoidal functions are particular since they have an explicit physical significance with regard to frequency. The subsequent decomposition then unfolds the frequency range of a signal, like a mirror that can be used to divide light into its spectral constituent colours. The Fourier transforms a signal dependent on time into a frequency representation. As one of the main instruments in signal processing, we are going to meet a number of music processing activities with the Fourier transformation system.
 
 Again looking at acousticness, you'll see a significant difference between Fruitvale station (Romance) and Tenet (Action). I used this chart to pick out certain tracks that will be analysed on a deeper level later on. 
 
@@ -441,7 +513,6 @@ scatter <-scores %>%                    # Start with awards.
   discrete = TRUE, option = "viridis",
 )
   
-
 
 
 ```
@@ -542,11 +613,6 @@ ggplotly(scatter2)
 
 
 
-***
-
-Genres
-
-
 <!-- Chroma Plot --> 
 
 Ludde {.storyboard}
@@ -645,14 +711,15 @@ chorddiagramm
 
 
 
-Chroma {.storyboard}
+Chroma {.storyboard} 
+
 =========================================
 
-###
+### Chroma {data-commentary-width=400}
 
 ```{r}
-kilmonger <-
-  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
+fma <-
+  get_tidy_audio_analysis("5hETAXfUxrdMJOeL20lx4N") %>%
   select(segments) %>%
   unnest(segments) %>%
   select(start, duration, pitches)
@@ -660,12 +727,32 @@ kilmonger <-
 ```
 
 ```{r}
-kilmonger %>%
+rtc <-
+  get_tidy_audio_analysis("5nwx668xcmm6h5msYiT3Hj") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+
+```
+
+```{r}
+tip <-
+  get_tidy_audio_analysis("2qwjVyRjKzownq7ggOcgj8") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+
+```
+
+
+
+```{r}
+ch1 <- fma %>%
   mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
   compmus_gather_chroma() %>% 
   ggplot(
     aes(
-      x = start + duration / 2,
+      x = start + duration / 1,
       width = duration,
       y = pitch_class,
       fill = value
@@ -673,20 +760,84 @@ kilmonger %>%
   ) +
   geom_tile() +
   labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_minimal(base_family = "Liberation Serif") +
-  scale_fill_viridis_c() +
-  geom_vline(xintercept = 50, linetype="dotted", 
-                color = "red", size=1) 
+  theme_calc(base_family = "Liberation Serif") +
+  scale_fill_viridis_c() 
+  #geom_vline(xintercept = 50, linetype="dotted", 
+               # color = "red", size=1) + 
+  #labs(title="Comparing different scores", 
+     #  subtitle="Ludwig Göransson") 
   
 
 ```
 
+
+```{r}
+ch2 <- rtc %>%
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
+  compmus_gather_chroma() %>% 
+  ggplot(
+    aes(
+      x = start + duration / 1,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_calc(base_family = "Liberation Serif") +
+  scale_fill_viridis_c()
+  
+
+```
+
+```{r}
+ch3 <- tip %>%
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
+  compmus_gather_chroma() %>% 
+  ggplot(
+    aes(
+      x = start + duration / 1,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_calc(base_family = "Liberation Serif") +
+  scale_fill_viridis_c() 
+  #geom_vline(xintercept = 50, linetype="dotted", 
+               # color = "red", size=1) 
+  
+
+```
+
+```{r}
+
+
+ply1 <- ggplotly(ch1)
+ply2 <- ggplotly(ch2)
+ply3 <- ggplotly(ch3)
+
+subplot(ply1, ply2, ply3, nrows=3)
+```
+
+
+
 ***
+From top to down:
+
+From Mumbai to Amalfi - Acousticness: 0.9470
+Retrieving the case   - Acousticness: 0.4650
+Trucks in place       - Acousticness: 0.0328
+
+the human pitch vision is periodic in that two pitches are seen as identical in "color" as they differentiate from one octave (playing a similar harmonic role). Based on this observation, a pitch is divided into two parts known as tone height and chroma. The tone height corresponds to the number of harmonics and the chroma to the attributes found in the collection. We list chroma values in[0:11] where 0 is referred to as chroma C, 1 to C, etc. . A pitch class is the collection of all pitches with a common chroma. The music synchronization class pitch 1243 that is the chroma C class is set (c0, c1, c2...), comprising all pitches separated by an octave. For convenience, we interchange the expressions chroma and pitch.
+By summing all the pitch factor coefficients that belong to the same chroma, a chroma representation or <b>chromagram</b> can be derived.
 
 
+In the case of chroma I picked one songs with a low acousticnes (around 0), one with a high acousticness (around 1), and one with an average acousticness (around 0.5). I wanted to research if there were any interesting results in terms of Chroma features.
 
-
-Chromagram kilmonger
 
 
 
@@ -755,15 +906,18 @@ compmus_long_distance(
 ***
 
 
+dynamic time warping(DTW)
+
+
+We saw how various music representations can be compared by transforming them into appropriate function representations. Next, we are investigating how these features can be aligned or synchronized to temporarily react. We add an important technology known as dynamic time warping to this end (DTW). Two specific sequences are to be compared by DTW. These two sequences, for instance, also depict two separate variations of the same piece of music in our music synchro-nization scenario.
 
 
 
 
 
 
-###
+Saturation {.storyboard} 
 
-Saturation {.storyboard}
 =========================================
 
 ```{r include = FALSE}
@@ -895,9 +1049,9 @@ c <- cg3
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(2, 2)))
 vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-print(b, vp = vplayout(1, 1))
+print(a, vp = vplayout(1, 1))
 print(c, vp = vplayout(1, 2))
-print(a, vp = vplayout(2, 1:2))
+print(b, vp = vplayout(2, 1:2))
 
 ```
 
@@ -912,7 +1066,31 @@ plots <- list(cg1, cg2)
 
 ***
 
+Analysis of Music Structure The hierarchical system in which music is arranged is one of the characteristics separating music from random sound sources. At the lowest level, there are occurrences such as individual notes, distinguished by their tone, timbre, timing and length. When different sound events are combined, large structures like motifs, sentences and sections are obtained, and these structures shape newly larger structures which define the overall design of the composition. This higher degree of structure is often referred to as the musical structure of the work, which is defined in musical sections and in relations with one another. The intro, the chorus and the verse parts of the song can be, for instance, in popular music. The exhibition, the creation and the recapitalisation of a movement may be any classical music. The general purpose of analysis of music structures is to divide a given musical representation into temporal segments which correspond to musical sections.
 
+
+<b>"You know. Yeah. Time to wake up"</b>
+
+<b>"This shit is about to go down." </b>
+
+I will analyse the song "RAINY NIGHT IN TALIN", wich in my opinion is one of his most interesting scores. I think the build up is done perfectly and the tension is huge. Also i like the timbre of the sound, because it's hard to tell whether he used acoustic or electronic instruments. 
+
+In the beginning, you can hear guitars and strings. It's just in two notes, but the movement and phrasing of these two notes were intriguing because it's difficult to say whether they're forward, reverse, or reversed.
+
+After that you hear the middle part of the track, which is, when the actor sees some other army men running with gas tanks in the direction of the house.
+
+And there's a lot of elements going on here, and you can't really tell what it is and what sound it is, but what's happening is that it's actually it's guitars again.
+
+The almost sound like alarms. 
+
+<i>"It's very effective. And it sounds like it's like almost like a, you know, what do you have?
+Like when you when you try to wake you up in the morning like a clock,
+you know. Yeah. Time to wake up.But I guess it's telling the
+audience, hey, guys, time to wake. This shit is about to go down."</i>
+
+
+
+A major contrast can be seen between this very low-acoustic (third plot) track and the track "Dinner time" (second plot') whith a very high accousticness. The album Tenet contains a variety of transitions and stories and has the perfect mix of acoustic instruments and electronic modular synthesizers. I believe the style quite well reflects the development of Ludwig. "Rainy night in Talin" sounds very enigmatic and very mysterious to me. It was also produced inside this pandemic so that perhaps it also had certain influences.
 
 ### Self-Similarty Matrices
 
@@ -941,13 +1119,14 @@ plots <- list(cg1, cg2)
 ***
 
 
+We have seen that the principles of repetition, homogeneity, and novelty are fundamental for partitioning a given audio recording into musically meaningful structural elements. To study musical structures and their mutual relations, one general idea is to convert the music signal into a suitable feature sequence and then to compare each element of the feature sequence with all other elements of the sequence. This results in a self-similarity matrix(SSM), a tool which is of fundamental importance not only for music structure analysis but also for the analysis of many kinds of time series.
 
 
 
-What key? {.storyboard}
+Keys {.storyboard}
 =========================================
 
-### Where are my keys?
+### Where are my keys? {data-commentary-width=400}
 
 ```{r include = FALSE}
 
@@ -1040,7 +1219,7 @@ key_templates <-
 ```
 
 ```{r include = FALSE}
-twenty_five <-
+picking <-
   get_tidy_audio_analysis("5UVsbUV0Kh033cqsZ5sLQi") %>%
   compmus_align(sections, segments) %>%
   select(sections) %>%
@@ -1055,8 +1234,98 @@ twenty_five <-
 ```
 
 
+```{r include = FALSE}
+emil <-
+  get_tidy_audio_analysis("4i5h0deyPfSt9qvYQSb5dZ") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+```
+
+
+
+```{r include = FALSE}
+time <-
+  get_tidy_audio_analysis("1Ps1H1hS80nWmx1U5jvhH4") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+```
+
+
+
+```{r include = FALSE}
+challa <-
+  get_tidy_audio_analysis("4i4zp0U58PhvXm6STYiL5m") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+```
+
+
+
+```{r include = FALSE}
+tip <-
+  get_tidy_audio_analysis("2qwjVyRjKzownq7ggOcgj8") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+```
+
+
+
+```{r include = FALSE}
+fc <-
+  get_tidy_audio_analysis("2JJWhWLXqXPm39suPT652C") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+```
+
+
+
+
+
+
+
+
 ```{r}
-twenty_five %>% 
+k1 <-picking %>% 
   compmus_match_pitch_template(
     key_templates,         # Change to chord_templates if descired
     method = "euclidean",  # Try different distance metrics
@@ -1072,101 +1341,146 @@ twenty_five %>%
 
 ```
 
+
+```{r}
+k2 <-emil %>% 
+  compmus_match_pitch_template(
+    key_templates,         # Change to chord_templates if descired
+    method = "euclidean",  # Try different distance metrics
+    norm = "manhattan"     # Try different norms
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+
+```
+
+
+```{r}
+k3 <-time %>% 
+  compmus_match_pitch_template(
+    key_templates,         # Change to chord_templates if descired
+    method = "euclidean",  # Try different distance metrics
+    norm = "manhattan"     # Try different norms
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+
+```
+
+
+```{r}
+k4 <-challa %>% 
+  compmus_match_pitch_template(
+    key_templates,         # Change to chord_templates if descired
+    method = "euclidean",  # Try different distance metrics
+    norm = "manhattan"     # Try different norms
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+
+```
+
+
+```{r}
+k5 <-tip %>% 
+  compmus_match_pitch_template(
+    key_templates,         # Change to chord_templates if descired
+    method = "euclidean",  # Try different distance metrics
+    norm = "manhattan"     # Try different norms
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+
+```
+
+
+```{r}
+k6 <-fc %>% 
+  compmus_match_pitch_template(
+    key_templates,         # Change to chord_templates if descired
+    method = "euclidean",  # Try different distance metrics
+    norm = "manhattan"     # Try different norms
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(x = "Time (s)", y = "")
+
+```
+
+
+```{r}
+
+
+ply1 <- ggplotly(k1)
+ply2 <- ggplotly(k2)
+ply3 <- ggplotly(k3)
+ply4 <- ggplotly(k4)
+ply5 <- ggplotly(k5)
+ply6 <- ggplotly(k6)
+
+subplot(ply1, ply2, ply3, ply4, ply5, ply6, nrows=3)
+```
+
+***
+
+From top to down:
+
+Picking up T            accousticness: 0.9920
+Emi                     accousticness: 0.9910
+
+It's your time          accousticness: 0.5260
+Killmonger vs Challa    accousticness: 0.5250
+
+Trucks in place         accousticness: 0.0328
+Fast cars               accousticness: 0.0636
+
+
+Music corresponds to the continuous sound of various notes, which create a complete structure in the listener's head. The principal elements of harmony are music structures, consisting usually of three or more pitches, at least in the Western music context. The research of harmony may be considered as a review of chord building, connection and progression. The progression of chords over time corresponds directly to what is often called the harmonic material of a music piece. These developments have a harmonic significance in the composition, description and interpretation of western tonal music, like poplar, jazz and classical music. Therefore characteristics which capture harmonic information, including music structural analysis (Chapter 4) and music recovery, are commonly applied for musical processing tasks (Chapter 7).
+
+Typical chord detection systems consist of two main measures, as stated in the introduction. Figure 5.13 shows this again. The first step consists of cutting the recorded sound to frames and transforming each frame into an adequate functional vector. Most recognition devices use chroma audio, which is related to the tonal detail in the audio signal. For each function vector to a set of pre-defined chord models in this second stage, pattern matching techniques are used. The best match decides the mark of the chord assigned to the frame. Additional improvements are used either before the matching stage (referred to as the pre filtration) or during / after the matching step of the pattern in order to optimize chord recognition results.
+
+In the case of chord estimation I picked two songs with a low acousticnes (around 0), two with a high acousticness (around 1), and two with an average acousticness (around 1). (around 0.5). I wanted to see if there were any interesting results in terms of key features.
+
+
+
 Presto {.storyboard}
 =========================================
 
 ### Wakanda
 
 
-```{r, include = FALSE}
-wakanda <-
-  get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs") %>%
-  select(segments) %>%
-  unnest(segments)
-
-
-```
-
-
-
-```{r include = FALSE}
-p1 <- wakanda %>%
-  mutate(loudness_max_time = start + loudness_max_time) %>%
-  arrange(loudness_max_time) %>%
-  mutate(delta_loudness = loudness_max - lag(loudness_max)) %>%
-  ggplot(aes(x = loudness_max_time, y = pmax(0, delta_loudness))) +
-  geom_line() +
-  xlim(0, 140) +
-  theme_minimal() +
-  labs(x = "Time (s)", y = "Novelty")
-
-```
-
-
-```{r include = FALSE}
-p2 <- wakanda %>%
-  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
-  arrange(start) %>%
-  mutate(pitches = map2(pitches, lag(pitches), `-`)) %>%
-  slice(-1) %>%
-  compmus_gather_chroma() %>%
-  ggplot(
-    aes(
-      x = start + duration / 2,
-      width = duration,
-      y = pitch_class,
-      fill = pmax(0, value)
-    )
-  ) +
-  geom_tile() +
-  scale_fill_viridis_c(guide = "none") +
-  xlim(0, 30) +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_classic()
-```
-
-
-```{r include = TRUE}
-wakanda2 <- get_tidy_audio_analysis("0w7yUSxpQV3a3HqlprOQUs")
-```
-
-
-```{r include = FALSE}
-
-
-p3 <- wakanda2 %>%
-  tempogram(window_size = 8, hop_size = 1, cyclic = FALSE) %>%
-  ggplot(aes(x = time, y = bpm, fill = power)) +
-  geom_raster() +
-  scale_fill_viridis_c(guide = "none") +
-  labs(x = "Time (s)", y = "Tempo (BPM)") +
-  theme_classic()
-
-
-```
-
-
-```{r include = TRUE}
-a <- p1
-b <- p2
-c <- p3
-
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(2, 2)))
-vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-print(b, vp = vplayout(1, 1))
-print(c, vp = vplayout(1, 2))
-print(a, vp = vplayout(2, 1:2))
-
-```
-
-```{r include = FALSE}
-plots <- list(p1, p2)
-```
 
 ```{r}
+# All defaults
+include_graphics(img3_path)
+``` 
 
-```
+
+
 
 ***
 
@@ -1179,333 +1493,43 @@ I want to show these layers with lines in the plots and be more specific about w
 
 
 
-Classification and clustering {.storyboard}
+
+Clutch {.storyboard}
 =========================================
 
-<!-- classification/clustering  -->
-
-```{r include = FALSE}
-
-library(compmus)
-
-get_conf_mat <- function(fit) {
-  outcome <- .get_tune_outcome_names(fit)
-  fit %>% 
-    collect_predictions() %>% 
-    conf_mat(truth = outcome, estimate = .pred_class)
-}  
-
-get_pr <- function(fit) {
-  fit %>% 
-    conf_mat_resampled() %>% 
-    group_by(Prediction) %>% mutate(precision = Freq / sum(Freq)) %>% 
-    group_by(Truth) %>% mutate(recall = Freq / sum(Freq)) %>% 
-    ungroup() %>% filter(Prediction == Truth) %>% 
-    select(class = Prediction, precision, recall)
-}  
-```
 
 
+### Classification {data-commentary-width=550}
 
-```{r include = FALSE}
-
-
-fruitvale <- get_playlist_audio_features("", "23n37IlJukKL9pUJyBbSib")
-panther <- get_playlist_audio_features("", "0iPhN83fKPIjBpG8vdZfLq")
-creed2 <- get_playlist_audio_features("", "36L2OTBzMVmY72fLKzSaRo")
-portfolio <-
-  bind_rows(
-    fruitvale %>% mutate(playlist = "Fruitvale Station") %>% slice_head(n = 20),
-    panther %>% mutate(playlist = "Black Panther") %>% slice_head(n = 20),
-    creed2 %>% mutate(playlist = "Creed II") %>% slice_head(n = 20)
-  ) 
-
-```
-
-```{r include = FALSE}
-portfolio_features <-
-  portfolio %>%  # For your portfolio, change this to the name of your corpus.
-  add_audio_analysis() %>% 
-  mutate(
-    playlist = factor(playlist),
-    segments = map2(segments, key, compmus_c_transpose),
-    pitches =
-      map(
-        segments,
-        compmus_summarise, pitches,
-        method = "mean", norm = "manhattan"
-      ),
-    timbre =
-      map(
-        segments,
-        compmus_summarise, timbre,
-        method = "mean",
-      )
-  ) %>%
-  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
-  mutate_at(vars(pitches, timbre), map, bind_rows) %>%
-  unnest(cols = c(pitches, timbre))
-```
-
-
-```{r include = FALSE}
-indie_recipe <-
-  recipe(
-    playlist ~
-      danceability +
-      energy +
-      loudness +
-      speechiness +
-      acousticness +
-      instrumentalness +
-      liveness +
-      valence +
-      tempo +
-      duration +
-      C + `C#|Db` + D + `D#|Eb` +
-      E + `F` + `F#|Gb` + G +
-      `G#|Ab` + A + `A#|Bb` + B +
-      c01 + c02 + c03 + c04 + c05 + c06 +
-      c07 + c08 + c09 + c10 + c11 + c12,
-    data = portfolio_features,          # Use the same name as the previous block.
-  ) %>%
-  step_center(all_predictors()) %>%
-  step_scale(all_predictors())      # Converts to z-scores.
-  # step_range(all_predictors())    # Sets range to [0, 1].
-```
-
-
-```{r include = FALSE}
-indie_cv <- portfolio_features %>% vfold_cv(5)
-```
-
-```{r include = FALSE}
-knn_model <-
-  nearest_neighbor(neighbors = 1) %>%
-  set_mode("classification") %>% 
-  set_engine("kknn")
-indie_knn <- 
-  workflow() %>% 
-  add_recipe(indie_recipe) %>% 
-  add_model(knn_model) %>% 
-  fit_resamples(
-    indie_cv, 
-    control = control_resamples(save_pred = TRUE)
-  )
-```
-
-```{r include = FALSE}
-indie_knn %>% get_conf_mat()
-```
-
-
-```{r include = FALSE}
-c1 <- indie_knn %>% get_conf_mat() %>% autoplot(type = "mosaic")
-```
-
-```{r include = FALSE}
-c2 <- indie_knn %>% get_conf_mat() %>% autoplot(type = "heatmap")
-```
-
-
-
-```{r include = FALSE}
-indie_knn %>% get_pr()
-```
-
-```{r include = FALSE}
-tree_model <-
-  decision_tree() %>%
-  set_mode("classification") %>% 
-  set_engine("C5.0")
-indie_tree <- 
-  workflow() %>% 
-  add_recipe(indie_recipe) %>% 
-  add_model(tree_model) %>% 
-  fit_resamples(
-    indie_cv, 
-    control = control_resamples(save_pred = TRUE)
-  )
-```
-
-
-```{r include = FALSE}
-indie_tree %>% get_pr()
-```
-
-
-```{r include = FALSE}
-workflow() %>% 
-  add_recipe(indie_recipe) %>% 
-  add_model(tree_model) %>% 
-  fit(portfolio_features) %>% 
-  pluck("fit", "fit", "fit") %>%
-  summary()
-```
-
-
-```{r include = FALSE}
-
-
-forest_model <-
-  rand_forest() %>%
-  set_mode("classification") %>% 
-  set_engine("ranger", importance = "impurity")
-indie_forest <- 
-  workflow() %>% 
-  add_recipe(indie_recipe) %>% 
-  add_model(forest_model) %>% 
-  fit_resamples(
-    indie_cv, 
-    control = control_resamples(save_pred = TRUE)
-  )
-```
-
-
-```{r include = FALSE}
-indie_forest %>% get_pr()
-```
-
-
-```{r include = FALSE}
-c5 <- workflow() %>% 
-  add_recipe(indie_recipe) %>% 
-  add_model(forest_model) %>% 
-  fit(portfolio_features) %>% 
-  pluck("fit", "fit", "fit") %>%
-  ranger::importance() %>% 
-  enframe() %>% 
-  mutate(name = fct_reorder(name, value)) %>% 
-  ggplot(aes(name, value)) + 
-  geom_col() + 
-  coord_flip() +
-  theme_minimal() +
-  labs(x = NULL, y = "Importance")
-```
-
-
-```{r include = FALSE}
-c6 <-portfolio_features %>%
-  ggplot(aes(x = c01, y = c02, colour = playlist, size = energy)) +
-  geom_point(alpha = 0.8) +
-  scale_color_viridis_d() +
-  labs(
-    x = "Timbre Component 1",
-    y = "Timbre Component 2",
-    size = "Energy",
-    colour = "Playlist"
-  )
-
-```
-
-### Classification
-
+ The acousticity of songs from Goranssons is analyzed in the previous pages. This begs the question: "can a classification algorithm be built to recognize whether the acoustic variable is a strong choice?
  
+ To do this i used Random Forests. Random forests are based on a basic but essential philosophy – crowd wisdom. The explanation for the random forest model working in data science is:
 
-```{r include = TRUE}
+"A significant number of relatively uncorrelated (trees) models working as a group would outperform all of the individual parts."
 
-multiplot(c1, c2, cols = 2)
 
-```
+Classification is a predictive modeling problem in machine learning that predicts a class mark for a given example of input data.
+
+For the second plot i used k-Nearest Neighbour sytem. 
+KNN is a learning algorithm which is non-parametric. Its aim is to use a database that divides data points into many groups in order to prevent the new sample point being categorized.
+
 ***
 
-Test
 
-
-### Timbre
-
-```{r include = FALSE}
-halloween <-
-  get_playlist_audio_features("bnfcollection", "1vsoLSK3ArkpaIHmUaF02C") %>%
-  add_audio_analysis() %>%
-  mutate(
-    segments = map2(segments, key, compmus_c_transpose),
-    pitches =
-      map(segments,
-        compmus_summarise, pitches,
-        method = "mean", norm = "manhattan"
-      ),
-    timbre =
-      map(
-        segments,
-        compmus_summarise, timbre,
-        method = "mean"
-      )
-  ) %>%
-  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
-  mutate_at(vars(pitches, timbre), map, bind_rows) %>%
-  unnest(cols = c(pitches, timbre))
-
+```{r}
+# All defaults
+include_graphics(img4_path)
 ```
 
 
-```{r include = FALSE}
-halloween_juice <-
-  recipe(
-    track.name ~
-      danceability +
-      energy +
-      loudness +
-      speechiness +
-      acousticness +
-      instrumentalness +
-      liveness +
-      valence +
-      tempo +
-      duration +
-      C + `C#|Db` + D + `D#|Eb` +
-      E + `F` + `F#|Gb` + G +
-      `G#|Ab` + A + `A#|Bb` + B +
-      c01 + c02 + c03 + c04 + c05 + c06 +
-      c07 + c08 + c09 + c10 + c11 + c12,
-    data = halloween
-  ) %>%
-  step_center(all_predictors()) %>%
-  step_scale(all_predictors()) %>% 
-  # step_range(all_predictors()) %>% 
-  prep(halloween %>% mutate(track.name = str_trunc(track.name, 20))) %>%
-  juice() %>%
-  column_to_rownames("track.name")
-```
-
-```{r include = FALSE}
-halloween_dist <- dist(halloween_juice, method = "euclidean")
-```
-
-```{r include = FALSE}
-
-halloween_dist %>% 
-  hclust(method = "single") %>% # Try single, average, and complete.
-  dendro_data() %>%
-  ggdendrogram()
-```
-
-
-```{r include = FALSE}
- heatmaply(
-  halloween_juice,
-  hclustfun = hclust,
-  hclust_method = "average",  # Change for single, average, or complete linkage.
-  dist_method = "euclidean"
-)
-```
-
-
-
-```{r include = TRUE}
-
-multiplot(c5, c6, cols = 2)
-
+```{r}
+# All defaults
+include_graphics(img5_path)
 ```
 
 
 
 
 
-
-
-
-
- 
 
 
