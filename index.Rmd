@@ -613,7 +613,7 @@ ggplotly(scatter2)
 
 
 
-<!-- Chroma Plot --> 
+
 
 Ludde {.storyboard}
 =========================================
@@ -707,13 +707,16 @@ circos.axis(h = "top", labels.cex = 0.5, major.tick.percentage = 0.2,
 
 chorddiagramm
 
+<br>
 
 
+
+<!-- Chroma Plot --> 
 
 
 Chroma {.storyboard} 
-
 =========================================
+
 
 ### Chroma {data-commentary-width=400}
 
@@ -828,9 +831,9 @@ subplot(ply1, ply2, ply3, nrows=3)
 ***
 From top to down:
 
-From Mumbai to Amalfi - Acousticness: 0.9470
-Retrieving the case   - Acousticness: 0.4650
-Trucks in place       - Acousticness: 0.0328
+From Mumbai to Amalfi - Acousticness: 0.9470<br>
+Retrieving the case   - Acousticness: 0.4650<br>
+Trucks in place       - Acousticness: 0.0328<br>
 
 the human pitch vision is periodic in that two pitches are seen as identical in "color" as they differentiate from one octave (playing a similar harmonic role). Based on this observation, a pitch is divided into two parts known as tone height and chroma. The tone height corresponds to the number of harmonics and the chroma to the attributes found in the collection. We list chroma values in[0:11] where 0 is referred to as chroma C, 1 to C, etc. . A pitch class is the collection of all pitches with a common chroma. The music synchronization class pitch 1243 that is the chroma C class is set (c0, c1, c2...), comprising all pitches separated by an octave. For convenience, we interchange the expressions chroma and pitch.
 By summing all the pitch factor coefficients that belong to the same chroma, a chroma representation or <b>chromagram</b> can be derived.
@@ -917,7 +920,6 @@ We saw how various music representations can be compared by transforming them in
 
 
 Saturation {.storyboard} 
-
 =========================================
 
 ```{r include = FALSE}
@@ -1449,19 +1451,19 @@ subplot(ply1, ply2, ply3, ply4, ply5, ply6, nrows=3)
 
 From top to down:
 
-Picking up T            accousticness: 0.9920
-Emi                     accousticness: 0.9910
+Picking up T            accousticness: 0.9920<br>
+Emi                     accousticness: 0.9910<br><br>
 
-It's your time          accousticness: 0.5260
-Killmonger vs Challa    accousticness: 0.5250
+It's your time          accousticness: 0.5260<br>
+Killmonger vs Challa    accousticness: 0.5250<br><br>
 
-Trucks in place         accousticness: 0.0328
-Fast cars               accousticness: 0.0636
+Trucks in place         accousticness: 0.0328<br>
+Fast cars               accousticness: 0.0636<br><br>
 
 
-Music corresponds to the continuous sound of various notes, which create a complete structure in the listener's head. The principal elements of harmony are music structures, consisting usually of three or more pitches, at least in the Western music context. The research of harmony may be considered as a review of chord building, connection and progression. The progression of chords over time corresponds directly to what is often called the harmonic material of a music piece. These developments have a harmonic significance in the composition, description and interpretation of western tonal music, like poplar, jazz and classical music. Therefore characteristics which capture harmonic information, including music structural analysis (Chapter 4) and music recovery, are commonly applied for musical processing tasks (Chapter 7).
+Music corresponds to the continuous sound of various notes, which create a complete structure in the listener's head. The principal elements of harmony are music structures, consisting usually of three or more pitches, at least in the Western music context. The research of harmony may be considered as a review of chord building, connection and progression. The progression of chords over time corresponds directly to what is often called the harmonic material of a music piece. These developments have a harmonic significance in the composition, description and interpretation of western tonal music, like poplar, jazz and classical music. Therefore characteristics which capture harmonic information, including music structural analysis (Chapter 4) and music recovery, are commonly applied for musical processing tasks .
 
-Typical chord detection systems consist of two main measures, as stated in the introduction. Figure 5.13 shows this again. The first step consists of cutting the recorded sound to frames and transforming each frame into an adequate functional vector. Most recognition devices use chroma audio, which is related to the tonal detail in the audio signal. For each function vector to a set of pre-defined chord models in this second stage, pattern matching techniques are used. The best match decides the mark of the chord assigned to the frame. Additional improvements are used either before the matching stage (referred to as the pre filtration) or during / after the matching step of the pattern in order to optimize chord recognition results.
+Typical chord detection systems consist of two main measures, as stated in the introduction. The first step consists of cutting the recorded sound to frames and transforming each frame into an adequate functional vector. Most recognition devices use chroma audio, which is related to the tonal detail in the audio signal. For each function vector to a set of pre-defined chord models in this second stage, pattern matching techniques are used. The best match decides the mark of the chord assigned to the frame. Additional improvements are used either before the matching stage (referred to as the pre filtration) or during / after the matching step of the pattern in order to optimize chord recognition results.
 
 In the case of chord estimation I picked two songs with a low acousticnes (around 0), two with a high acousticness (around 1), and two with an average acousticness (around 1). (around 0.5). I wanted to see if there were any interesting results in terms of key features.
 
@@ -1483,12 +1485,14 @@ include_graphics(img3_path)
 
 
 ***
+<b> Energy based novelty</b> <br>
+We saw that playing a note on a tool always coincided with a sudden rise in signal energy. For instance, when you touch a key, pluck a line on a guitar or hit a drum with a rock. On this basis, the transformation of the signal into an energy function indicating the local power of the signal in each instance and then searching for abrupt shifts in it is an easy way for detecting notice start-ups.
 
+<b> spectral based novelty </b>
+Startup tracking for polyphonic music gets even difficult for sound events overlapping. A low impact musical activity may be masked by a high intensity occurrence. Energy variations in one instrument's sustained period can be greater than increases in the other instrument's attack phase. Therefore, it is usually difficult to identify all occurrences using pure power-based techniques in the case of several instruments playing at the same time. The characteristics of note start, however, can depend heavily on the respective instrument type. For example, for percussive tools with an impact, a rapid spike in energy may be seen, scattered over the whole frequency spectrum. In certain frequency ranges, even polyphonic mixes such noise-like broadband transients can be observed. Although the energy of a harmonic spring in the lower part of the spectrum is more localized, in the higher-frequency area fluctuations are also well detected.
 
-For tempo i've chosen the song Kilmonger from the Black Panther's score. I think this was an interesting song to analyse because of its different layers it contains. In the beginning you can hear a flute, which represents kilmonger's African background. The flute is pitched down and escalates into chaos. The next layer are the strings and they go up in arpeggios. These escalate and grow bigger. Then suddenly the music cuts out and 808 drums start to kick. It feels dangerous and they come out of nowhere. They have a really low bass and sound like heartbeats. The last layer is the trap beat, representing him coming from Oakland. 
+For tempo I've chosen the song Kilmonger from the Black Panther's score. I think this was an interesting song to analyse because of its different layers it contains. In the beginning you can hear a flute, which represents kilmonger's African background. The flute is pitched down and escalates into chaos. The next layer are the strings and they go up in arpeggios. These escalate and grow bigger. Then suddenly the music cuts out and 808 drums start to kick. It feels dangerous and they come out of nowhere. They have a really low bass and sound like heartbeats. The last layer is the trap beat, representing him coming from Oakland. 
 
-'' note / 
-I want to show these layers with lines in the plots and be more specific about what happens with the changes in tempo.  
 
 
 
