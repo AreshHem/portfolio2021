@@ -94,8 +94,8 @@ attr(img5, "info")
 ```
 
 ```{r include = FALSE}
-img7_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/plottt"
-img7 <- readPNG(img5_path, native = TRUE, info = TRUE)
+img7_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/plottt.png"
+img7 <- readPNG(img7_path, native = TRUE, info = TRUE)
 attr(img7, "info")
 ```
 
@@ -352,9 +352,9 @@ I will look into film composer and producer Ludwig Göransson for this report. I
 
 ### Significance? {data-commentary-width=550}
 
-<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Goransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much higher.
+<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Göransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much higher.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wfWSkOiDZR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/9bZkp7q19f0?rel=0" frameborder="0" allowfullscreen></iframe>
 <!--
 ```{r}
  
@@ -399,8 +399,11 @@ ggpairs(stats, columns = 3:5, ggplot2::aes(colour=playlist_name)) + theme_calc(b
 
 ```{r}
 # All defaults
-include_graphics(img6_path)
+include_graphics(img7_path)
 ```
+
+
+
 
 Analysis {.storyboard}
 =========================================
@@ -1522,16 +1525,16 @@ Clutch {.storyboard}
 
 ### Classification {data-commentary-width=550}
 
- The acousticity of songs from Goranssons is analyzed in the previous pages. This begs the question: "can a classification algorithm be built to recognize whether the acoustic variable is a strong choice?
+ The acousticness of songs from Göransson scores are analyzed in the previous pages. This begs the question: "can a classification algorithm be built to recognize whether the acoustic variable is a strong choice?
  
- To do this i used Random Forests. Random forests are based on a basic but essential philosophy – crowd wisdom. The explanation for the random forest model working in data science is:
+ To do this I used Random Forests. Random forests are based on a basic but essential philosophy – crowd wisdom. The explanation for the random forest model working in data science is:
 
 "A significant number of relatively uncorrelated (trees) models working as a group would outperform all of the individual parts."
 
 
-Classification is a predictive modeling problem in machine learning that predicts a class mark for a given example of input data.
+Classification is a predictive modelling problem in machine learning that predicts a class mark for a given example of input data.
 
-For the second plot i used k-Nearest Neighbour sytem. 
+For the second plot i used k-Nearest Neighbour system. 
 KNN is a learning algorithm which is non-parametric. Its aim is to use a database that divides data points into many groups in order to prevent the new sample point being categorized.
 
 ***
