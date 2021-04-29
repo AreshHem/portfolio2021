@@ -87,6 +87,18 @@ img5 <- readPNG(img5_path, native = TRUE, info = TRUE)
 attr(img5, "info")
 ```
 
+```{r include = FALSE}
+img6_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/ai33.png"
+img5 <- readPNG(img5_path, native = TRUE, info = TRUE)
+attr(img5, "info")
+```
+
+```{r include = FALSE}
+img7_path <- "/home/stotel/Documents/Scola/2020-2021/semester 2/blok 1/Computational Musicology/pics/plots/plottt"
+img7 <- readPNG(img5_path, native = TRUE, info = TRUE)
+attr(img7, "info")
+```
+
 <!-- playlists --> 
 
 ```{r, include = FALSE}
@@ -338,9 +350,11 @@ I will look into film composer and producer Ludwig Göransson for this report. I
 
 
 
-### Significance?
+### Significance? {data-commentary-width=550}
 
+<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Goransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much higher.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wfWSkOiDZR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <!--
 ```{r}
  
@@ -354,7 +368,6 @@ data(stats)
 ggpairs(stats, columns = 3:5, ggplot2::aes(colour=playlist_name)) + theme_calc(base_family = "Liberation Serif")
 ```
 
---> 
 ```{r include = TRUE}
   ggstatsplot::ggbetweenstats(
   data = scores,
@@ -377,14 +390,17 @@ ggpairs(stats, columns = 3:5, ggplot2::aes(colour=playlist_name)) + theme_calc(b
   
 ) + scale_x_discrete(guide = guide_axis(n.dodge = 2)) 
 ```
-
+-->
 
 
 ***
-<b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Goransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much better.
 
 
 
+```{r}
+# All defaults
+include_graphics(img6_path)
+```
 
 Analysis {.storyboard}
 =========================================
@@ -835,7 +851,7 @@ From Mumbai to Amalfi - Acousticness: 0.9470<br>
 Retrieving the case   - Acousticness: 0.4650<br>
 Trucks in place       - Acousticness: 0.0328<br>
 
-the human pitch vision is periodic in that two pitches are seen as identical in "color" as they differentiate from one octave (playing a similar harmonic role). Based on this observation, a pitch is divided into two parts known as tone height and chroma. The tone height corresponds to the number of harmonics and the chroma to the attributes found in the collection. We list chroma values in[0:11] where 0 is referred to as chroma C, 1 to C, etc. . A pitch class is the collection of all pitches with a common chroma. The music synchronization class pitch 1243 that is the chroma C class is set (c0, c1, c2...), comprising all pitches separated by an octave. For convenience, we interchange the expressions chroma and pitch.
+the human pitch vision is periodic in that two pitches are seen as identical in "color" as they differentiate from one octave (playing a similar harmonic role). Based on this observation, a pitch is divided into two parts known as tone height and chroma. The tone height corresponds to the number of harmonics and the chroma to the attributes found in the collection. We list chroma values in[0:11] where 0 is referred to as chroma C, 1 to C, etc. . A pitch class is the collection of all pitches with a common chroma. The music synchronization class pitch 1243 that is the chroma C class is set, comprising all pitches separated by an octave. For convenience, we interchange the expressions chroma and pitch.
 By summing all the pitch factor coefficients that belong to the same chroma, a chroma representation or <b>chromagram</b> can be derived.
 
 
@@ -1121,8 +1137,9 @@ A major contrast can be seen between this very low-acoustic (third plot) track a
 ***
 
 
-We have seen that the principles of repetition, homogeneity, and novelty are fundamental for partitioning a given audio recording into musically meaningful structural elements. To study musical structures and their mutual relations, one general idea is to convert the music signal into a suitable feature sequence and then to compare each element of the feature sequence with all other elements of the sequence. This results in a self-similarity matrix(SSM), a tool which is of fundamental importance not only for music structure analysis but also for the analysis of many kinds of time series.
+We have shown that the concepts of repetition, uniformity, and complexity are fundamental for segmenting a given audio recording into musically significant structural components. One method of studying structural and interconnective coherence is to convert the signal into a set of features and then group the features according to their relationships. This results in a self-similarity matrix (SSM), a method which is of profound significance not just for music structure analysis but also for the analysis of several kinds of dataset.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6A5EpqqDOdk" frameborder="0" allowfullscreen></iframe>
 
 
 Keys {.storyboard}
