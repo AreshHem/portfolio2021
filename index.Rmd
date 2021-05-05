@@ -354,7 +354,7 @@ I will look into film composer and producer Ludwig Göransson for this report. I
 
 <b> Acousticness? </b> So what actually is acousticness? It's not that difficult, and quite self-explanatory. It means how acoustic a track is. I believe that Göransson is keen to study because he has a great combination between acoustic and electronic sounds. They are well balanced, as you can see from the Tenet ratings. His latest score is also this. Looking even at fruitvale station for example, you find that the mean acousticness is much higher.
 
-<iframe width="560" height="315" src="http://www.youtube.com/embed/9bZkp7q19f0?rel=0" frameborder="0" allowfullscreen></iframe>
+
 <!--
 ```{r}
  
@@ -1107,7 +1107,7 @@ The almost sound like alarms.
 <i>"It's very effective. And it sounds like it's like almost like a, you know, what do you have?
 Like when you when you try to wake you up in the morning like a clock,
 you know. Yeah. Time to wake up.But I guess it's telling the
-audience, hey, guys, time to wake. This shit is about to go down."</i>
+audience, hey, guys, time to wake. This shit is about to go down." " Ludwig Göransson 2020 "</i>
 
 
 
